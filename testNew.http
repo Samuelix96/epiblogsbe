@@ -1,0 +1,90 @@
+GET http://localhost:7077/blogPosts?page=2 HTTP/1.1
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJNYXJ0YSIsImxhc3ROYW1lIjoiVmVyZGkiLCJlbWFpbCI6Im1hcnRhcm9zc2lAZ21haWwuY29tIiwiYmlydGgiOiI0IHNldHRlbWJyZSIsImlhdCI6MTY5NzU4MjMwMSwiZXhwIjoxNjk3NjY4NzAxfQ.GGj1am8TgckwWhZQOV93ZGRCQHOrRn4o2iT3QnvIk_Y
+
+####
+
+POST http://localhost:7077/blogPosts/newCreate HTTP/1.1
+Content-Type: application/json
+
+{
+    "category":"Stagioni",
+    "title": "Primaver",
+    "cover": "https://media.gettyimages.com/id/560345935/it/foto/cherry-blossom.jpg?s=612x612&w=0&k=20&c=FKDuaVxSD1g8XT-P7IwU4MX6uj7YWREDxY_GV7Ab0tI=",
+    "content":"La fioritura della primavera",
+    "readTime":{"value": 39, "unit": "minuti fa"},
+    "author": {"name": "Federico", "avatar": "https://media.gettyimages.com/id/538032706/it/foto/basta-felice.jpg?s=612x612&w=0&k=20&c=VuPyWKiflh_RBiKWR0HnPwt9KWNlUPsM4gCDAgjmJCs="}
+}
+
+####
+
+GET http://localhost:7077/blogPosts/bytitle?title=i HTTP/1.1
+
+####
+
+PATCH http://localhost:7077/blogPosts/update/652718814ba9bfcd5bba606c HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Primavera"
+}
+
+####
+
+DELETE http://localhost:7077/blogPosts/delete/652718814ba9bfcd5bba606c HTTP/1.1
+
+####
+
+
+
+# !  Authors
+
+
+GET http://localhost:7077/authors HTTP/1.1
+
+####
+
+GET http://localhost:7077/authors/ HTTP/1.1
+
+####
+
+POST http://localhost:7077/authors/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Marta",
+    "lastName": "Verdi",
+    "email": "martarossi@gmail.com",
+    "password": "lamiapassword",
+    "birth": "4 settembre",
+    "avatar": "https://media.gettyimages.com/id/1572267902/it/vettoriale/abstract-avatar-icon-profilo-diverse-empty-face-per-social-network-e-applicazioni.jpg?s=612x612&w=0&k=20&c=-8qaFdLUW_vuUG299C4HhNCR6QGIVoFsyzoQek1NPC8="
+}
+
+####
+
+PATCH http://localhost:7077/authors/update/652ea9b4b73bc85aee659793 HTTP/1.1
+Content-Type: application/json
+
+{
+    "lastName": "Neri"
+}
+
+####
+
+DELETE http://localhost:7077/authors/delete/652ea964b73bc85aee659791 HTTP/1.1
+
+
+####
+
+
+
+# Login
+
+####
+
+POST http://localhost:7077/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "martarossi@gmail.com",
+    "password": "lamiapassword"
+}
