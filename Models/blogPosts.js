@@ -14,24 +14,13 @@ const BlogsSchema = new mongoose.Schema({
         required: true
     },
     readTime: {
-        value: {
-            type: Number,
-            required: true
-        },
-        unit: {
-            type: String,
-            required: true
-        },
+        type: String,
+        required: false,
+        default: "10 min fa"
     },
     author: {
-        name: {
-            type: String,
-            required: true
-        },
-        avatar: {
-            type: String,
-            required: true
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "AuthorsModel"
     },
     content: {
         type: String,

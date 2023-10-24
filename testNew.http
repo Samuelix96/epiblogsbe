@@ -1,5 +1,5 @@
-GET http://localhost:7077/blogPosts?page=2 HTTP/1.1
-//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJNYXJ0YSIsImxhc3ROYW1lIjoiVmVyZGkiLCJlbWFpbCI6Im1hcnRhcm9zc2lAZ21haWwuY29tIiwiYmlydGgiOiI0IHNldHRlbWJyZSIsImlhdCI6MTY5NzU4MjMwMSwiZXhwIjoxNjk3NjY4NzAxfQ.GGj1am8TgckwWhZQOV93ZGRCQHOrRn4o2iT3QnvIk_Y
+GET http://localhost:7077/blogPosts?page=1 HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJNYXJ0YSIsImxhc3ROYW1lIjoiVmVyZGkiLCJlbWFpbCI6Im1hcnRhcm9zc2lAZ21haWwuY29tIiwiYmlydGgiOiI0IHNldHRlbWJyZSIsImlhdCI6MTY5NzU4MjMwMSwiZXhwIjoxNjk3NjY4NzAxfQ.GGj1am8TgckwWhZQOV93ZGRCQHOrRn4o2iT3QnvIk_Y
 
 ####
 
@@ -7,17 +7,17 @@ POST http://localhost:7077/blogPosts/newCreate HTTP/1.1
 Content-Type: application/json
 
 {
-    "category":"Stagioni",
-    "title": "Primaver",
-    "cover": "https://media.gettyimages.com/id/560345935/it/foto/cherry-blossom.jpg?s=612x612&w=0&k=20&c=FKDuaVxSD1g8XT-P7IwU4MX6uj7YWREDxY_GV7Ab0tI=",
-    "content":"La fioritura della primavera",
-    "readTime":{"value": 39, "unit": "minuti fa"},
-    "author": {"name": "Federico", "avatar": "https://media.gettyimages.com/id/538032706/it/foto/basta-felice.jpg?s=612x612&w=0&k=20&c=VuPyWKiflh_RBiKWR0HnPwt9KWNlUPsM4gCDAgjmJCs="}
+    "category":"Primavera",
+    "title": "La Primavera ",
+    "cover": "https://images.pexels.com/photos/6858608/pexels-photo-6858608.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "content":"è alla arrivata la primavera",
+    "readTime": "12-settembre-2022 12:34",
+    "author": "653657bc7ecaf6de9c5248fc"
 }
 
 ####
 
-GET http://localhost:7077/blogPosts/bytitle?title=i HTTP/1.1
+GET http://localhost:7077/blogPosts/bytitle?title=aur HTTP/1.1
 
 ####
 
@@ -30,19 +30,23 @@ Content-Type: application/json
 
 ####
 
-DELETE http://localhost:7077/blogPosts/delete/652718814ba9bfcd5bba606c HTTP/1.1
+DELETE http://localhost:7077/blogPosts/delete/65338c99400808f4df4a9b0a HTTP/1.1
 
 ####
 
+GET http://localhost:7077/blogPosts/byid/65346af44e7099d33ee0a02d HTTP/1.1
 
+####
 
-# !  Authors
+#!  Authors
 
 
 GET http://localhost:7077/authors HTTP/1.1
 
 ####
+#   
 
+#### 
 GET http://localhost:7077/authors/ HTTP/1.1
 
 ####
@@ -51,11 +55,11 @@ POST http://localhost:7077/authors/create HTTP/1.1
 Content-Type: application/json
 
 {
-    "firstName": "Marta",
-    "lastName": "Verdi",
-    "email": "martarossi@gmail.com",
-    "password": "lamiapassword",
-    "birth": "4 settembre",
+    "firstName": "Aldo",
+    "lastName": "Baglio",
+    "email": "aldobaglio@gmail.com",
+    "password": "lamiapassword05",
+    "birth": "30 giugno",
     "avatar": "https://media.gettyimages.com/id/1572267902/it/vettoriale/abstract-avatar-icon-profilo-diverse-empty-face-per-social-network-e-applicazioni.jpg?s=612x612&w=0&k=20&c=-8qaFdLUW_vuUG299C4HhNCR6QGIVoFsyzoQek1NPC8="
 }
 
@@ -70,14 +74,14 @@ Content-Type: application/json
 
 ####
 
-DELETE http://localhost:7077/authors/delete/652ea964b73bc85aee659791 HTTP/1.1
+DELETE http://localhost:7077/authors/delete/6534815d4f33868c1c6a3c94 HTTP/1.1
 
 
 ####
 
 
 
-# Login
+#! Login
 
 ####
 
@@ -85,6 +89,80 @@ POST http://localhost:7077/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "martarossi@gmail.com",
-    "password": "lamiapassword"
+    "email": "LucaMarion@live.it",
+    "password": "lamiapasso"
 }
+
+####
+
+#! Registration
+
+####
+
+POST http://localhost:7077/registration HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Manna",
+    "lastName":  "Re",
+    "email": "MannaMarion@live.it",
+    "password": "lamiapasso",
+    "birth": "11 settembre",
+    "avatar": "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+}
+
+
+####
+POST http://localhost:7077/validateToken HTTP/1.1
+Content-Type: application/application/json
+
+{
+    "sessionToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJNYXJ0YSIsImxhc3ROYW1lIjoiVmVyZGkiLCJlbWFpbCI6Im1hcnRhcm9zc2lAZ21haWwuY29tIiwiYmlydGgiOiI0IHNldHRlbWJyZSIsImlhdCI6MTY5NzU4MjMwMSwiZXhwIjoxNjk3NjY4NzAxfQ.GGj1am8TgckwWhZQOV93ZGRCQHOrRn4o2iT3QnvIk_Y"
+}
+
+
+#####
+
+#email 
+
+####
+
+POST http://localhost:7077/send-email HTTP/1.1
+Content-Type: application/json
+
+{
+    "subject": "mail confidenziale",
+    "text": "Salve questa è un email"
+}
+
+####
+
+#! comments
+
+####
+GET http://localhost:7077/blogPosts/653657367ecaf6de9c5248aa/comments HTTP/1.1
+
+
+####
+
+POST http://localhost:7077/blogPosts/653657367ecaf6de9c5248aa/comments/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "userName": "ironman",
+    "content": "sta arrivando thor per caso?",
+    "code": "653657367ecaf6de9c5248aa"
+}
+
+####
+
+PUT http://localhost:7077/blogPosts/653657367ecaf6de9c5248aa/comments/65370badb46999bf1aaa7042 HTTP/1.1
+Content-Type: application/json
+
+{
+    "content": "Una vista davvero stupefancete"
+}
+
+####
+
+DELETE http://localhost:7077/blogPosts/653657367ecaf6de9c5248aa/comments/6536efff0a37331ed2615525 HTTP/1.1

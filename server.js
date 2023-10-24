@@ -5,9 +5,13 @@ const authorsRoute = require("./Routes/authors")
 const loginRoute = require("./Routes/login")
 const githubRoute = require("./Routes/github")
 const PORT = 7077;
+const registrationRoute = require("./Routes/registration")
+const emailRoute = require("./Routes/sendEmail")
+const validateRoute = require("./Routes/decodeVerify")
 require("dotenv").config();
 const blogsRoute = require("./Routes/blogPosts")
 const path = require("path")
+const commentsRoute = require("./Routes/comments")
 
 
 
@@ -24,6 +28,10 @@ app.use('/', blogsRoute)
 app.use('/', authorsRoute)
 app.use('/', loginRoute)
 app.use('/', githubRoute)
+app.use('/', validateRoute)
+app.use('/', emailRoute)
+app.use('/', registrationRoute)
+app.use('/', commentsRoute)
 
 
 

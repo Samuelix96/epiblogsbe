@@ -3,7 +3,27 @@ const BlogModel = require("../Models/blogPosts")
 const blogs = express.Router()
 const multer = require("multer")
 const crypto = require("crypto")
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage} = require("multer-storage-cloudinary");
+require("dotenv").config();
 const verifyToken = require("../middlewares/verifyToken")
+
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key : process.env.CLOUDINARY_APY_KEY,
+    api_secret : process.env.CLOUDINARY_APY_SECRET,
+})
+
+const cloudStorage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params : {
+        folder: "CoverImage",
+        format: async(req,file) => "png",
+        public_id : (req, file) => file.name
+    }
+})
+
 
 
 const internalStorage = multer.diskStorage({
@@ -26,7 +46,20 @@ const internalStorage = multer.diskStorage({
 })
 
 const upload = multer({ storage: internalStorage })
+const cloudUpload = multer({ storage: cloudStorage})
 
+
+
+blogs.post('/blogPosts/cloudUpload', cloudUpload.single("cover"), async(req, res) => {
+    try {
+        res.status(200).json({cover: req.file.path})
+    } catch (error) {
+        res.status(500).send({
+            statusCode: 500,
+            message: "Error internal server"
+        })
+    }
+})
 
 blogs.post('/blogPosts/uploads', upload.single("cover"), async (req, res) =>
 {
@@ -50,10 +83,11 @@ blogs.post('/blogPosts/uploads', upload.single("cover"), async (req, res) =>
 
 blogs.get('/blogPosts',async (req, res) =>
 {
-    const { page = 1, pageSize = 3 } = req.query;
+    const { page = 1, pageSize = 3} = req.query;
     try
     {
         const blog = await BlogModel.find()
+            .populate("author")
             .skip((page - 1) * pageSize)
             .limit(pageSize)
 
@@ -107,8 +141,8 @@ blogs.post('/blogPosts/newCreate', async (req, res) =>
         category: req.body.category,
         title: req.body.title,
         cover: req.body.cover,
-        readTime: { value: req.body.readTime.value, unit: req.body.readTime.unit },
-        author: { name: req.body.author.name, avatar: req.body.author.avatar },
+        readTime: req.body.readTime,
+        author: req.body.author,
         content: req.body.content
     });
     try
@@ -161,14 +195,14 @@ blogs.patch('/blogPosts/update/:postId', async (req, res) =>
     }
 })
 
-blogs.delete('/blogPosts/delete/:id', async (req, res) =>
+blogs.delete('/blogPosts/delete/:postId', async (req, res) =>
 {
-    const { id } = req.params
+    const { postId} = req.params
 
 
     try
     {
-        const blogPost = await BlogModel.findByIdAndDelete(id)
+        const blogPost = await BlogModel.findByIdAndDelete(postId)
         if (!blogPost)
         {
             return res.status(404).send({
@@ -186,6 +220,29 @@ blogs.delete('/blogPosts/delete/:id', async (req, res) =>
         res.status(500).send({
             statusCode: 500,
             message: "Errore interno al server",
+        })
+    }
+})
+
+blogs.get('/blogPosts/byid/:id', async(req, res) => {
+    const {id} = req.params;
+
+    try{
+        const blog = await BlogModel.findById(id)
+        if(!blog) {
+            return res.status(404).send({
+                statusCode:404,
+                message : `questo post non esiste con questo id ${id}`
+            })
+        }
+        res.status(200).send({
+            statusCode: 200,
+            blog
+        })
+    } catch(error) {
+        res.status(500).send({
+            statusCode: 500,
+            message: "Errore interno con il server"
         })
     }
 })

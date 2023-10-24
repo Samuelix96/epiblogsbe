@@ -1,10 +1,11 @@
 
-const express = require('express');
+const express = require("express");
 const login = express.Router();
 const bcrypt = require('bcrypt');
 const AuthorsModel = require('../Models/authors');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+
+require("dotenv").config();
 
 login.post('/login', async (req, res) => {
   const user = await AuthorsModel.findOne({ email: req.body.email });
@@ -45,6 +46,8 @@ login.post('/login', async (req, res) => {
     statusCode: 200,
     token,
   });
+
 });
+
 
 module.exports = login;
